@@ -1,0 +1,32 @@
+void sendAlert()
+{
+  String sms_data;
+  sms_data = "Accident Alert!!\r";
+  sms_data += "http://maps.google.com/maps?q=loc:";
+  sms_data += latitude + "," + longitude;
+
+  sendSms(sms_data);
+}
+
+void makeCall()
+{
+  Serial.println("calling....");
+  sim800.println("ATD" + EMERGENCY_PHONE + ";");
+  delay(20000); //20 sec delay
+  sim800.println("ATH");
+  delay(1000); //1 sec delay
+}
+
+void sendSms(String text)
+{
+  //return;
+  sim800.print("AT+CMGF=1\r");
+  delay(1000);
+  sim800.print("AT+CMGS=\"" + EMERGENCY_PHONE + "\"\r");
+  delay(1000);
+  sim800.print(text);
+  delay(100);
+  sim800.write(0x1A);
+  delay(1000);
+  Serial.println("SMS Sent Successfully.");
+}
