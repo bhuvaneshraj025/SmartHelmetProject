@@ -1,5 +1,6 @@
 #include <LiquidCrystal.h>
-LiquidCrystal lcd(13, 12, 11, 10, 9, 8); int MQ3= A0;
+LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+int MQ3= A0;
  int Relay=6;
  int value;
 void setup() {
