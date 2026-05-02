@@ -1,0 +1,26 @@
+void getGps()
+{
+  
+  boolean newData = false;
+  for (unsigned long start = millis(); millis() - start < 2000;) {
+    while (neogps.available()) {
+      if (gps.encode(neogps.read())) {
+        newData = true;
+        break;
+      }
+    }
+  }
+  if (newData)
+  {
+    latitude = String(gps.location.lat(), 6);
+    longitude = String(gps.location.lng(), 6);
+    newData = false;
+  }
+  else {
+    Serial.println("No GPS data is available");
+    latitude = "";
+    longitude = "";
+  } 
+  Serial.print("Latitude= "); Serial.println(latitude);
+  Serial.print("Lngitude= "); Serial.println(longitude);
+}
